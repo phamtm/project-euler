@@ -13,9 +13,18 @@
 # What is the value of the first triangle number to have over five hundred divisors?
 
 def prob12():
-	brute force loop from 1
-		find num of divisors
+	n = 2
+	num = 1
+	while True:
+		num = n*(n+1)/2
+		num_divs = count_num_of_divisors(num)
+		if num_divs >= 500:
+			break
+	return num
 
-		n*(n+1)/2
+# if a number can be factorized as A = p1^k1 * p2^k2 * p3^k3 ... where
+# p1, p2, p3.. is prime then it has k1 + 1 + k2 + 1 + k3 + 1 + ... divisors
+def count_num_of_divisors(num):
+
 
 print(prob12())
