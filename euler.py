@@ -10,74 +10,6 @@ def sum_divisible_by(x, maximum):
 	p = maximum/x
 	return x*p*(p+1)/2
 
-# 2. Find the sum of even fibonacci number not greater than x
-def sum_even_fib(x):
-	prev  = 0
-	cur   = 1
-	a_sum = 0
-	while (cur <= x):
-		if (cur%2 == 0):
-			a_sum += cur
-		temp = cur
-		cur += prev
-		prev = temp
-	print(a_sum)
-
-def sum_even_fib_2(x):
-	prev  = 1
-	cur   = 1
-	next  = prev + cur
-	a_sum = 0
-	while (cur <= x):
-		# the third number in the sequence is always an even number
-		a_sum += next
-		prev  = cur + next
-		cur   = prev + next
-		next  = prev + cur
-	print(a_sum)
-
-def sum_even_fib_3(x):
-	prev  = 2
-	cur   = 8
-	a_sum = prev
-	while (cur <= x):
-		a_sum += cur
-		# For the sequence 2,8,34,144, E(n) = 4*E(n-1) + E(n-2)
-		temp  = cur
-		cur   = 4*cur + prev
-		prev  = temp
-		print(cur, temp)
-	print(a_sum)
-
-# 3. Find the largest prime factor
-def largest_prime_factor(x):
-	# Special case: x = 1
-	if is_prime(x) or x == 1:
-		return x
-	factor = -1
-	temp = 2
-	# Factor x once
-	while (temp < x):
-		if (x%temp == 0):
-			factor = temp
-			break
-		temp += 1
-
-	return max(largest_prime_factor(x/factor), largest_prime_factor(factor))
-
-def is_prime(x):
-	if (x == 2) or (x == 3):
-		return True
-	elif (x%2 == 0) or (x > 3 and x%3 == 0):
-		return False
-	else:
-		i = 3
-		while (i*i <= x): #O(sqrt(n))
-			if (x%i == 0):
-				return False
-			i += 2
-		return True
-
 # 4. Find the largest palindrome number that is the
 # product of two 3-digit numbers
 def largest_palindrome():
@@ -167,14 +99,5 @@ def prime_sum(limit):
 # MAIN FUNCTION CALL
 #
 s = time.time()
-prime_sum(2*10**6)
+print(int(largest_prime_factor(123)))
 print(time.time() - s)
-# main function call
-# num_runs = 0
-# total_time = 0
-# for x in range(1,10):
-# 	s = time.time()
-# 	pythagore_triplet(1000)
-# 	total_time += time.time() - s
-# 	num_runs += 1
-# print (total_time/num_runs)
