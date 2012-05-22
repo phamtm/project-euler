@@ -1,4 +1,5 @@
-# euclid's algorithm for finding greatest common divisor
+# euclid's algorithm for finding greatest common divisors
+#edited
 def gcd(a, b):
 	if (b == 0):
 		return a
