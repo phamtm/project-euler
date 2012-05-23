@@ -12,19 +12,61 @@
 # We can see that 28 is the first triangle number to have over five divisors.
 # What is the value of the first triangle number to have over five hundred divisors?
 
+import math
+
 def prob12():
-	n = 2
-	num = 1
-	while True:
-		num = n*(n+1)/2
-		num_divs = count_num_of_divisors(num)
-		if num_divs >= 500:
-			break
-	return num
+	n = 3					# triangle number = n*(n+1)/2
 
-# if a number can be factorized as A = p1^k1 * p2^k2 * p3^k3 ... where
-# p1, p2, p3.. is prime then it has k1 + 1 + k2 + 1 + k3 + 1 + ... divisors
-def count_num_of_divisors(num):
+	D[n] = 2					# number of divisors
+	sieve = prime_table()	# the prime table
+	MIN_DIVISORS = 500
+	count = 0
 
+	while count <= MIN_DIVISORS:
+		n += 1
+		n1 = n
+		if (n1%2 ==0):
+			n1 /= 2
+		D[n1] = 1
+		for i in range(0, len(sieve)):
+			if sieve[i] == False:
+				continue
+			if i == 0:
+				prime = 2
+			else:
+				prime = 2 * i + 1
+			if (prime*prime) > n1:
+				Dn1 *= 2
+				break
+
+			exponent = 1
+			while n1 % (prime) == 0:
+				n1 /= prime
+				exponent += 1
+			# if a number can be factorized as A = p1^k1 * p2^k2 * p3^k3 ... where
+			# p1, p2, p3.. is prime then it has (k1 + 1)*(k2 + 1)*(k3 + 1) ... divisors
+			if exponent > 1:
+				Dn1 *= exponent
+			if n1 == 1:
+				break
+
+			count = D[n]*D[n1]
+			D[n] = D[n1]
+
+	return int(n*(n-1)/2)
+
+# using the sieve of eratothenes
+def prime_table():
+	limit = 2**16
+	sievebound = math.floor((limit-1)/2) # last index of sieve
+	crosslimit = int(math.floor(math.sqrt(limit)-1)/2)
+	sieve = [True for i in range(0, sievebound)]
+	for i in range(1, crosslimit):
+		# i is not marked, hence prime
+		if sieve[i]:
+			for m in range(2*i*(i+1), sievebound, 2*i+1):
+				sieve[m] = False
+
+	return sieve
 
 print(prob12())

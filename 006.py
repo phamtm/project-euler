@@ -2,7 +2,7 @@
 def find_largest_product(x):
 	max_prod = 0;
 	for i in range(0, len(x)-5):
-		if (max_prod == 9^5):
+		if (max_prod == 9**5):
 			return
 		if (int(x[i]) == 0):
 			continue

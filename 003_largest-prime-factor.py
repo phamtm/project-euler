@@ -17,14 +17,13 @@ def largest_prime_factor(x):
 def is_prime(x):
 	if (x == 2) or (x == 3):
 		return True
-	elif (x%2 == 0) or (x > 3 and x%3 == 0):
+	if (x%2 == 0) or (x%3 == 0):
 		return False
-	else:
-		i = 3
-		while (i*i <= x): #O(sqrt(n))
-			if (x%i == 0):
-				return False
-			i += 2
-		return True
+	i = 3
+	while (i*i <= x): #O(sqrt(n))
+		if (x%i == 0):
+			return False
+		i += 2
+	return True
 
 print(int(largest_prime_factor(1355224)))
