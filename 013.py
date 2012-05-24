@@ -9,7 +9,7 @@ def prob13():
 	f.close()
 
 	carry = 0
-	for i in range(len(array[0])-1, -1, -1):
+	for i in range(11, -1, -1):
 		temp_sum = carry
 
 		for string in array:

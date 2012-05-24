@@ -16,8 +16,7 @@ import math
 
 def prob12():
 	n = 3					# triangle number = n*(n+1)/2
-
-	D[n] = 2					# number of divisors
+	D[n] = 2				# number of divisors
 	sieve = prime_table()	# the prime table
 	MIN_DIVISORS = 500
 	count = 0
