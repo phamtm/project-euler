@@ -80,8 +80,6 @@ def prime_table(limit):
 
 	return sieve
 
-
-a = prime_table(10000)
 s = time.time()
 print(prob21(10**4))
 exec_time = time.time() - s
