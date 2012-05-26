@@ -12,12 +12,12 @@
 # We can see that 28 is the first triangle number to have over five divisors.
 # What is the value of the first triangle number to have over five hundred divisors?
 
-import math
+import prime
 
 def prob12():
 	n = 3					# triangle number = n*(n+1)/2
 	D[n] = 2				# number of divisors
-	sieve = prime_table()	# the prime table
+	sieve = prime.prime_table(1000)	# the prime table
 	MIN_DIVISORS = 500
 	count = 0
 
@@ -53,19 +53,5 @@ def prob12():
 			D[n] = D[n1]
 
 	return int(n*(n-1)/2)
-
-# using the sieve of eratothenes
-def prime_table():
-	limit = 2**16
-	sievebound = math.floor((limit-1)/2) # last index of sieve
-	crosslimit = int(math.floor(math.sqrt(limit)-1)/2)
-	sieve = [True for i in range(0, sievebound)]
-	for i in range(1, crosslimit):
-		# i is not marked, hence prime
-		if sieve[i]:
-			for m in range(2*i*(i+1), sievebound, 2*i+1):
-				sieve[m] = False
-
-	return sieve
 
 print(prob12())
