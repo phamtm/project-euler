@@ -12,45 +12,44 @@
 # # less than this limit.
 # # Find the sum of all the positive integers which cannot be written as the sum
 # # of two abundant numbers.
-# import prime
 
-# def prob23():
-#     limit = 28123
-#     prime_sieve = prime.prime_table(limit)
-#     odd_abundant = []
-#     even_abundant = []
-#     non_abundant_sum = []
+from math import sqrt
 
-#     # Create an array of abundant numbers
-#     for i in range(2, limit):
-#         # A prime is not abundant
-#         if (is_abundant(i, prime_sieve)):
-#             if i % 2 == 0:
-#                 even_abundant.append(i)
-#             else:
-#                 odd_abundant.append(i)
+import prime
 
-#     # Odd numbers that are the sums of 2 abundant numbers
-#     for i in range(0, len(even_abundant)):
-#         for j in range(0, len(odd_abundant)):
-#             temp = even_abundant[i] + odd_abundant[j]
-#             if temp < limit:
-#                 non_abundant_sum.append(temp)
-#     # Even number that are larger than 48 are the sums of 2 abundant numbers
-#     for i in range(0, len(even_abundant)):
-#         if ((i % 2 == 0) and (i > 48)) or (i in [24,30,32,36,38,40,42,44,48]):
-#             non_abundant_sum.append(i)
-#     non_abundant_sum = list(set(non_abundant_sum))
+def prob23():
+    limit = 20162
+    s = 0
+    abn = set()
+    prime_sieve = prime.prime_table(limit)
+    for n in range(1, limit):
+        if is_abundant(n, prime_sieve):
+            abn.add(n)
+        if not any((n-a in abn) for a in abn):
+            s += n
+    return s
 
-#     return sum(i for i in range(0, limit+1)) - sum(i for i in non_abundant_sum)
+def is_abundant(n, prime_sieve):
+    if (n % 2 == 1 and n > 2 and n < len(prime_sieve) and prime_sieve[int((n-1)/2)] == True):
+        return False
+    if n %2 != 0 and n % 3 != 0 and n < 5391411025:
+        return False
+    return n < sum_of_divisors(n)
 
-# def is_abundant(n, prime_sieve):
-#     if (n % 2 == 1 and n > 2 and n < len(prime_sieve) and prime_sieve[int((n-1)/2)] == True):
-#         return False
-#     if n < 5391411025 and n %2 != 0 and n % 3 != 0:
-#         return False
+def sum_of_divisors_a(n):
+    prod = 1
+    k = 2
+    while (k*k <= n):
+        p = 1
+        while(n%k==0):
+            p=p*k+1
+            n/=k
+        prod*=p
+        k += 1
 
-#     return n < sum_of_divisors(n)
+    if(n>1):
+        prod*=1+n
+    return prod
 
 def sum_of_divisors(n):
     sum_divisors = 1
@@ -63,20 +62,7 @@ def sum_of_divisors(n):
         i += 1
     return sum_divisors
 
-# import time
-# s = time.time()
-# print(prob23() - 4179871)
-# print(time.time()-s)
-
-from math import sqrt
-
-limit = 20162
-s = 0
-abn = set()
-for n in range(1, limit):
-  if sum_of_divisors(n) > n:
-    abn.add(n)
-  if not any( (n-a in abn) for a in abn ):
-    s += n
-
-print("Answer to PE23 = ", s)
+import time
+s = time.time()
+print(sum_of_divisors_a(6))
+print(time.time()-s)
