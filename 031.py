@@ -1,12 +1,12 @@
-def prob31(amount):
+def prob31(target):
 	coins = [1,2,5,10,20,50,100,200]
-	num_coins = 200
-	num_combinations = 0
-	cache = {}
-	return get_combinations(20, 200, coins, num_combinations, cache)
+	ways = [1]+[0]*target
 
-def get_combinations(amount, num_coins, coins, num_combinations, cache):
-	if num_coins == 0:
-		if amount != 0:
-			return
-		else:
+	for coin in coins:
+		for i in range(coin, target+1):
+			ways[i] += ways[i-coin]
+
+	return ways[target]
+
+print(prob31(200))
+
