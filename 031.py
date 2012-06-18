@@ -9,4 +9,3 @@ def prob31(target):
 	return ways[target]
 
 print(prob31(200))
-
